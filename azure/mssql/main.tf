@@ -1,5 +1,5 @@
 resource "azurerm_subnet" "mssql-subnet" {
-  resource_group_name = var.resource-group-properties.rg-name
+  resource_group_name = var.resource-group-properties.name
 
   name                 = var.mssql-properties.mssql-subnet-name
   virtual_network_name = var.vnet-name
@@ -7,8 +7,8 @@ resource "azurerm_subnet" "mssql-subnet" {
 }
 
 resource "azurerm_mssql_server" "mssql-server" {
-  resource_group_name = var.resource-group-properties.rg-name
-  location            = var.resource-group-properties.rg-location
+  resource_group_name = var.resource-group-properties.name
+  location            = var.resource-group-properties.location
 
   name                          = var.mssql-properties.mssql-server-name
   version                       = var.mssql-properties.mssql-server-version
@@ -32,8 +32,8 @@ resource "azurerm_mssql_database" "mssql-database" {
 }
 
 resource "azurerm_private_endpoint" "mssql-subnet-private-endpoint" {
-  resource_group_name = var.resource-group-properties.rg-name
-  location            = var.resource-group-properties.rg-location
+  resource_group_name = var.resource-group-properties.name
+  location            = var.resource-group-properties.location
 
   name      = var.mssql-properties.mssql-subnet-private-endpoint-name
   subnet_id = azurerm_subnet.mssql-subnet.id

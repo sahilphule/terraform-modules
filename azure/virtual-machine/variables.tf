@@ -8,7 +8,7 @@ variable "virtual-machine-properties" {
   type        = any
 }
 
-variable "vnet-public-subnet-id" {
-  description = "virtual network public subnet id"
+variable "vnet-subnet-id" {
+  description = "virtual network subnet id"
   type        = any
 }

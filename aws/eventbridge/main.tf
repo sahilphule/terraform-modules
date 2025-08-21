@@ -31,7 +31,7 @@ resource "aws_scheduler_schedule" "eventbridge-scheduler-schedule" {
   }
 
   target {
-    arn      = var.eventbridge-properties.scheduler-scheduler-target-arn
+    arn      = var.eventbridge-properties.scheduler-schedule-target-arn
     role_arn = aws_iam_role.eventbridge-iam-role[0].arn
     input = jsonencode(
       {

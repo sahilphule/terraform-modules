@@ -1,6 +1,6 @@
 resource "azurerm_kubernetes_cluster" "aks-cluster" {
-  location            = var.resource-group-properties.rg-location
   resource_group_name = var.resource-group-properties.rg-name
+  location            = var.resource-group-properties.rg-location
 
   name                             = var.aks-properties.aks-cluster-name
   kubernetes_version               = var.aks-properties.aks-kubernetes-version

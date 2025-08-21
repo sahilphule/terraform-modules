@@ -3,8 +3,8 @@ variable "resource-group-properties" {
   type        = map(any)
 }
 
-variable "mysql-flexible-properties" {
-  description = "azure mysql flexible properties"
+variable "postgres-flexible-properties" {
+  description = "azure postgres flexible properties"
   type        = any
 }
 

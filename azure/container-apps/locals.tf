@@ -8,21 +8,27 @@ locals {
 
   # container app properties
   container-app-properties = {
-    ca-name                  = "container-apps"
-    ca-revision-mode         = "Single"
-    ca-workload-profile-name = "standard-workload"
+    name                  = "container-apps"
+    revision-mode         = "Single"
+    workload-profile-name = "Consumption"
+    identity-type         = "" # SystemAssigned, UserAssigned
+    identity-ids          = []
 
-    ca-template-container-name = "nginx-container"
-    # ca-template-container-image  = "${local.acr-login-server}/nginx:latest"
-    ca-template-container-cpu    = 0.25
-    ca-template-container-memory = "0.5Gi"
+    template-container-name = "nginx-container"
+    # template-container-image  = "${local.acr-login-server}/nginx:latest"
+    template-container-cpu    = 0.25
+    template-container-memory = "0.5Gi"
 
-    ca-template-min-replicas = 1
-    ca-template-max-replicas = 1
+    env = {
+      "CONTAINER_NAME" = ""
+    }
 
-    ca-ingress-allow-insecure-connections = false
-    ca-ingress-external-enabled           = true
-    ca-ingress-target-port                = 80
-    ca-ingress-transport                  = "auto"
+    template-min-replicas = 1
+    template-max-replicas = 1
+
+    ingress-allow-insecure-connections = false
+    ingress-external-enabled           = true
+    ingress-target-port                = 80
+    ingress-transport                  = "auto"
   }
 }

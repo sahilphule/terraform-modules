@@ -4,13 +4,60 @@ locals {
 
   # virtual network properties
   virtual-network-properties = {
-    vnet-name = "vnet"
+    vnet-name = "virtual-network"
     vnet-address-space = [
-      "10.1.0.0/16"
+      "10.0.0.0/16"
     ]
-    vnet-public-subnet-name = "vnet-public-subnet"
-    vnet-public-subnet-address-prefixes = [
-      "10.1.0.0/23"
-    ]
+
+    vnet-subnet-properties = {
+      subnet-1 = {
+        name              = "vnet-container-apps-subnet"
+        address-prefixes  = ["10.0.0.0/23"]
+        service-endpoints = ["Microsoft.Storage"]
+        delegation = {
+          name                       = "container-apps-delegation"
+          service-delegation-name    = "Microsoft.App/environments"
+          service-delegation-actions = ["Microsoft.Network/virtualNetworks/subnets/join/action", ]
+        }
+
+        network-security = {
+          group-name = "dev-container-apps-vnet-subnet-nsg"
+
+          rule-name                       = "AllowInternetIn"
+          rule-priority                   = 100
+          rule-direction                  = "Inbound"
+          rule-access                     = "Allow"
+          rule-protocol                   = "*"
+          rule-source-port-range          = "*"
+          rule-destination-port-range     = "*"
+          rule-source-address-prefix      = "*"
+          rule-destination-address-prefix = "*"
+        }
+      }
+
+      subnet-2 = {
+        name              = "vnet-mysql-flexible-server-subnet"
+        address-prefixes  = ["10.0.2.0/23"]
+        service-endpoints = ["Microsoft.Storage"]
+        delegation = {
+          name                       = "mysql-flexible-server-delegation"
+          service-delegation-name    = "Microsoft.DBforMySQL/flexibleServers"
+          service-delegation-actions = ["Microsoft.Network/virtualNetworks/subnets/join/action", ]
+        }
+
+        nsg-name = "vnet-mysql-flexible-server-subnet-nsg"
+        nsg-rule = {
+          name                       = "DenyInternetIn"
+          priority                   = 100
+          direction                  = "Inbound"
+          access                     = "Deny"
+          protocol                   = "*"
+          source-port-range          = "*"
+          destination-port-range     = "*"
+          source-address-prefix      = "*"
+          destination-address-prefix = "*"
+        }
+      }
+    }
   }
 }

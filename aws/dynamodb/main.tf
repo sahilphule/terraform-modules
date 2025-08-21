@@ -13,6 +13,10 @@ resource "aws_dynamodb_table" "dynamodb-table" {
     type = var.dynamodb-properties.dynamodb-table-attribute-type
   }
 
+  point_in_time_recovery {
+    enabled = true
+  }
+
   tags = {
     Name = var.dynamodb-properties.dynamodb-table-tags-Name
   }

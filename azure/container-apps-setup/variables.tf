@@ -8,7 +8,7 @@ variable "container-app-setup-properties" {
   type        = any
 }
 
-variable "vnet-public-subnet-id" {
-  description = "virtual network public subnet id"
+variable "vnet-infrastructure-subnet-id" {
+  description = "virtual network infrastructure subnet id"
   type        = any
 }

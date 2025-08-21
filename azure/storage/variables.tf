@@ -8,7 +8,7 @@ variable "storage-properties" {
   type        = any
 }
 
-variable "vnet-public-subnet-id" {
-  description = "virtual network public subnet id"
+variable "vnet-subnet-ids" {
+  description = "virtual network subnet ids"
   type        = any
 }

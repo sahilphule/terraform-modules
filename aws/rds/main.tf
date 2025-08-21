@@ -1,4 +1,6 @@
 resource "aws_db_subnet_group" "rds-db-subnet-group" {
+  count = var.rds-properties.rds-db-instance-count == 0 ? 0 : 1
+
   name        = var.rds-properties.rds-db-subnet-group-name
   description = var.rds-properties.rds-db-subnet-group-description
 
@@ -22,6 +24,8 @@ resource "aws_db_parameter_group" "rds-db-parameter-group" {
 }
 
 resource "aws_security_group" "rds-security-group" {
+  count = var.rds-properties.rds-db-instance-count == 0 ? 0 : 1
+
   name   = var.rds-properties.rds-security-group-name
   vpc_id = var.vpc-id
 
@@ -45,7 +49,7 @@ resource "aws_security_group" "rds-security-group" {
   }
 }
 
-resource "aws_db_instance" "db-instance" {
+resource "aws_db_instance" "rds-db-instance" {
   count = var.rds-properties.rds-db-instance-count
 
   identifier = var.rds-properties.rds-db-instance-identifier[count.index]
@@ -62,11 +66,11 @@ resource "aws_db_instance" "db-instance" {
   username = var.rds-properties.rds-db-instance-username[count.index]
   password = var.rds-properties.rds-db-instance-password[count.index]
 
-  db_subnet_group_name = aws_db_subnet_group.rds-db-subnet-group.name
+  db_subnet_group_name = aws_db_subnet_group.rds-db-subnet-group[0].name
   parameter_group_name = var.rds-properties.rds-db-instance-engine[count.index] == "postgres" ? aws_db_parameter_group.rds-db-parameter-group[0].name : null
 
   vpc_security_group_ids = [
-    aws_security_group.rds-security-group.id
+    aws_security_group.rds-security-group[0].id
   ]
 }
 

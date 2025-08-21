@@ -42,6 +42,11 @@ resource "aws_iam_role_policy_attachment" "eks-node-group-iam-role-policy-attach
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
 }
 
+resource "aws_iam_role_policy_attachment" "eks-node-group-iam-role-policy-attachment-AmazonEBSCSIDriverPolicy" {
+  role       = aws_iam_role.eks-node-group-iam-role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
+}
+
 resource "aws_eks_node_group" "eks-node-group" {
   count = var.eks-properties.eks-node-group-count
 
@@ -66,6 +71,7 @@ resource "aws_eks_node_group" "eks-node-group" {
     aws_iam_role.eks-node-group-iam-role,
     aws_iam_role_policy_attachment.eks-node-group-iam-role-policy-attachment-AmazonEKSWorkerNodePolicy,
     aws_iam_role_policy_attachment.eks-node-group-iam-role-policy-attachment-AmazonEKS_CNI_Policy,
-    aws_iam_role_policy_attachment.eks-node-group-iam-role-policy-attachment-AmazonEC2ContainerRegistryReadOnly
+    aws_iam_role_policy_attachment.eks-node-group-iam-role-policy-attachment-AmazonEC2ContainerRegistryReadOnly,
+    aws_iam_role_policy_attachment.eks-node-group-iam-role-policy-attachment-AmazonEBSCSIDriverPolicy
   ]
 }

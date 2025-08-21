@@ -18,7 +18,7 @@ locals {
     scheduler-schedule-name                = ["morning-eventbridge-schedule", "night-eventbridge-schedule"]
     scheduler-schedule-expression-timezone = ["Asia/Kolkata", "Asia/Kolkata"]
     scheduler-schedule-expression          = ["cron(0 8 ? * * *)", "cron(0 23 ? * * *)"] # Compulsory in above timezone format
-    scheduler-scheduler-target-arn         = ""                                          # local.lambda-function-arn[0], local.sns-topic-arn[0]
+    scheduler-schedule-target-arn          = ""                                          # local.lambda-function-arn[0], local.sns-topic-arn[0]
     scheduler-schedule-action              = ["start", "stop"]
 
     cloudwatch-event-rule-count               = 0

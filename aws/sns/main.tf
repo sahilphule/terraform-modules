@@ -31,15 +31,15 @@ resource "aws_sns_topic_subscription" "sns-topic-subscription" {
   ]
 }
 
-resource "aws_sns_sms_preferences" "sns-sms-cloudwatch-logging" {
-  count = aws_sns_topic_subscription.sns-topic-subscription[0].protocol == "sms" ? 1 : 0
+# resource "aws_sns_sms_preferences" "sns-sms-cloudwatch-logging" {
+#   count = aws_sns_topic_subscription.sns-topic-subscription[0].protocol == "sms" ? 1 : 0
 
-  # default_sender_id = "sokalp.in"
-  default_sms_type                      = var.sns-properties.sns-sms-cloudwatch-logging-default-sms-type
-  monthly_spend_limit                   = var.sns-properties.sns-sms-cloudwatch-logging-monthly-spend-limit
-  delivery_status_success_sampling_rate = var.sns-properties.sns-sms-cloudwatch-logging-delivery-status-success-sampling-rate
-  delivery_status_iam_role_arn          = aws_iam_role.sns-sms-logging-iam-role.arn
-}
+#   # default_sender_id = "sokalp.in"
+#   default_sms_type                      = var.sns-properties.sns-sms-cloudwatch-logging-default-sms-type
+#   monthly_spend_limit                   = var.sns-properties.sns-sms-cloudwatch-logging-monthly-spend-limit
+#   delivery_status_success_sampling_rate = var.sns-properties.sns-sms-cloudwatch-logging-delivery-status-success-sampling-rate
+#   delivery_status_iam_role_arn          = aws_iam_role.sns-sms-logging-iam-role.arn
+# }
 
 # resource "aws_sns_platform_application" "sns-platform-application" {
 #   count = var.sns-properties.sns-platform-application-count

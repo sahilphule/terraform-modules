@@ -14,13 +14,22 @@ locals {
     sa-https-traffic-only-enabled    = true
     sa-public-network-access-enabled = true
 
-    sa-network-rules-count          = 1
-    sa-network-rules-default-action = "Allow"
-    sa-network-rules-bypass         = ["Metrics"] # Metrics, Logging, AzureServices (Default), None
+    sa_network_rules_enabled = true
+    sa_network_rules_properties = {
+      default_action = "Allow"
+      bypass         = [] # Metrics, Logging, AzureServices (Default), None, set [] to remove it
+    }
 
-    sc-count                 = 1
-    sc-name                  = ["storage-container"]
-    sc-container-access-type = "private"
+    sc-properties = {
+      dev-tfstates = {
+        sc-name                  = "dev-tfstates"
+        sc-container-access-type = "private"
+      }
+      prod-tfstates = {
+        sc-name                  = "prod-tfstates"
+        sc-container-access-type = "private"
+      }
+    }
 
     sb-object-name        = "storage-blob-object"
     sb-object-type        = "Block"
