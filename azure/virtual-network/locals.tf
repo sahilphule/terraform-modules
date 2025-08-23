@@ -11,7 +11,7 @@ locals {
 
     vnet-subnet-properties = {
       subnet-1 = {
-        name              = "vnet-container-apps-subnet"
+        name              = "container-apps-vnet-subnet"
         address-prefixes  = ["10.0.0.0/23"]
         service-endpoints = ["Microsoft.Storage"]
         delegation = {
@@ -21,7 +21,7 @@ locals {
         }
 
         network-security = {
-          group-name = "dev-container-apps-vnet-subnet-nsg"
+          group-name = "container-apps-vnet-subnet-nsg"
 
           rule-name                       = "AllowInternetIn"
           rule-priority                   = 100
@@ -36,7 +36,7 @@ locals {
       }
 
       subnet-2 = {
-        name              = "vnet-mysql-flexible-server-subnet"
+        name              = "mysql-flexible-server-vnet-subnet"
         address-prefixes  = ["10.0.2.0/23"]
         service-endpoints = ["Microsoft.Storage"]
         delegation = {
@@ -45,7 +45,7 @@ locals {
           service-delegation-actions = ["Microsoft.Network/virtualNetworks/subnets/join/action", ]
         }
 
-        nsg-name = "vnet-mysql-flexible-server-subnet-nsg"
+        nsg-name = "mysql-flexible-server-vnet-subnet-nsg"
         nsg-rule = {
           name                       = "DenyInternetIn"
           priority                   = 100
