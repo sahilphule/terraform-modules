@@ -6,7 +6,7 @@ name: GitGuardian Secrets Scan
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   scan:
